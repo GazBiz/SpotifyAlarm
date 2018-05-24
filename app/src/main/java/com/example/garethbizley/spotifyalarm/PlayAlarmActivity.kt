@@ -7,11 +7,13 @@ import android.util.Log
 import android.view.WindowManager
 import com.example.garethbizley.spotifyalarm.networking.AuthenticationClass
 import com.example.garethbizley.spotifyalarm.networking.SpotifyService
+import com.example.garethbizley.spotifyalarm.system.AlarmIntentManager
 import com.example.garethbizley.spotifyalarm.utils.AlarmUtils
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationResponse
 import com.spotify.sdk.android.player.*
 import kotlinx.android.synthetic.main.play_alarm_view.*
+import java.util.*
 
 /**
  * Created by Gaz Biz on 2/12/17.
@@ -19,7 +21,7 @@ import kotlinx.android.synthetic.main.play_alarm_view.*
 class PlayAlarmActivity: Activity() {
 
     var spotifyPlayer:SpotifyPlayer? = null
-    var TAG = "playAlarmActivity"
+    val TAG = javaClass.name
     var authenticator = AuthenticationClass(this)
     val spotifyService = SpotifyService(this)
 
@@ -35,6 +37,14 @@ class PlayAlarmActivity: Activity() {
 
         stopButton.setOnClickListener {
             spotifyPlayer!!.shutdown()
+        }
+
+        snoozeButton.setOnClickListener {
+            spotifyPlayer!!.shutdown()
+            val timeNow = Calendar.getInstance()
+            timeNow.add(Calendar.MINUTE, 10)
+            val alarmIntentManager = AlarmIntentManager(this)
+            alarmIntentManager.setNewAlarmIntent(timeNow)
         }
     }
 
@@ -71,7 +81,7 @@ class PlayAlarmActivity: Activity() {
 
 
     fun startPlayer(){
-        var trackNum = AlarmUtils.rand(0, 77)
+        val trackNum = AlarmUtils.rand(0, 77)
         spotifyPlayer!!.playUri(spotifyService, AlarmUtils.PLAYLIST_URL, trackNum, 1)
     }
 
