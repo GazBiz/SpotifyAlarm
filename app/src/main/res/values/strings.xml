@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SpotifyAlarm</string>
+    <string name="alarm_name">Alarm Name</string>
+    <string name="choose_days">Choose days</string>
+    <string name="choose_playlist">Choose playlist</string>
+    <string name="create_alarm">Create Alarm</string>
+    <string name="alarm_time">Set alarm time</string>
+    <string name="stop">STOP</string>
+</resources>
